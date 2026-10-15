@@ -1,0 +1,58 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- The title shown in the browser tab -->
+    <title>Banana Quest</title>
+
+    <!-- Connect the CSS file to this webpage -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Main container for the game -->
+    <main class="game-container">
+
+        <!-- Game heading -->
+        <h1>🍌 Banana Quest</h1>
+        <p>Solve the banana puzzle and test your skills!</p>
+
+        <!-- Area where the puzzle image will appear -->
+        <section class="puzzle-section">
+            <h2>Today's Puzzle</h2>
+            <img id="puzzle-image" src="" alt="Banana puzzle">
+        </section>
+
+        <!-- Form for submitting the player's answer -->
+        <form id="answer-form">
+            <label for="answer-input">Enter your answer:</label>
+
+            <input
+                type="number"
+                id="answer-input"
+                placeholder="Enter a number"
+                required
+            >
+
+            <button type="submit">Submit Answer</button>
+        </form>
+
+        <!-- Button for requesting another puzzle -->
+        <button type="button" id="new-puzzle-button">
+            New Puzzle
+        </button>
+
+        <!-- Messages will appear here -->
+        <p id="game-message" role="status" aria-live="polite"></p>
+
+    </main>
+
+    <!-- Connect the JavaScript file to the webpage -->
+    <script src="game.js"></script>
+
+</body>
+</html>
+```
