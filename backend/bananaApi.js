@@ -1,4 +1,3 @@
-
 // Store the address of the Banana API in a constant variable.
 const BANANA_API_URL = "https://marcconrad.com/uob/banana/api.php";
 
