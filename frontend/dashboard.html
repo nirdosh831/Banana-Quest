@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banana Quest | Dashboard</title>
+
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <main class="dashboard-page">
+        <div class="dashboard-wrapper">
+
+            <header class="dashboard-header">
+                <div class="dashboard-logo">
+                    🍌 Banana <span>Quest</span>
+                </div>
+
+                <div class="dashboard-user">
+                    <div class="welcome-user">
+                        Welcome back,
+                        <strong id="username">Player!</strong>
+                    </div>
+
+                    <button
+                        type="button"
+                        id="logout-button"
+                        class="dashboard-button logout-button">
+                        Logout
+                    </button>
+                </div>
+            </header>
+
+            <section class="hero-section">
+                <div class="hero-content">
+                    <div class="hero-label">
+                        PUZZLES · LOGIC · FUN
+                    </div>
+
+                    <h1>
+                        Ready for a Banana Challenge?
+                    </h1>
+
+                    <p>
+                        Test your thinking skills, solve fun banana puzzles,
+                        and see if you can find the correct answer!
+                    </p>
+
+                    <button
+                        type="button"
+                        id="start-game-button"
+                        class="dashboard-button start-button">
+                        🎮 Start Game →
+                    </button>
+
+                    <p
+                        id="dashboard-message"
+                        class="dashboard-message"
+                        role="status"
+                        hidden>
+                    </p>
+                </div>
+
+                <div class="hero-banana" aria-hidden="true">
+                    🍌
+                </div>
+            </section>
+
+            <section class="feature-grid">
+                <article class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">
+                        🧩
+                    </div>
+
+                    <div>
+                        <h2>Solve Puzzles</h2>
+                        <p>
+                            Study the puzzle image, think carefully,
+                            and enter your answer.
+                        </p>
+                    </div>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-icon" aria-hidden="true">
+                        💡
+                    </div>
+
+                    <div>
+                        <h2>Improve Your Thinking</h2>
+                        <p>
+                            Practise logical thinking and problem-solving
+                            with fun challenges.
+                        </p>
+                    </div>
+                </article>
+            </section>
+
+            <section class="how-to-play">
+                <h2>How to Play</h2>
+
+                <div class="steps-grid">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <p>
+                            Look carefully at the banana puzzle image.
+                        </p>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <p>
+                            Enter your answer in the game.
+                        </p>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <p>
+                            Check your answer and keep playing!
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="dashboard-footer">
+                Banana Quest · Think, Solve, Play!
+            </footer>
+
+        </div>
+    </main>
+
+    <script>
+        const usernameElement = document.getElementById("username");
+        const startGameButton = document.getElementById("start-game-button");
+        const logoutButton = document.getElementById("logout-button");
+        const dashboardMessage = document.getElementById("dashboard-message");
+
+        async function loadPlayer() {
+            try {
+                const response = await fetch("/api/auth/me");
+
+                if (response.status === 401) {
+                    window.location.replace("/login.html");
+                    return;
+                }
+
+                if (!response.ok) {
+                    throw new Error("Could not load player information.");
+                }
+
+                const player = await response.json();
+
+                usernameElement.textContent =
+                    player.username || "Player";
+
+            } catch (error) {
+                dashboardMessage.textContent =
+                    "Could not load your account information. Please refresh the page.";
+
+                dashboardMessage.hidden = false;
+            }
+        }
+
+        startGameButton.addEventListener("click", () => {
+            window.location.href = "/game.html";
+        });
+
+        logoutButton.addEventListener("click", async () => {
+            logoutButton.disabled = true;
+            logoutButton.textContent = "Logging out...";
+
+            try {
+                const response = await fetch("/api/auth/logout", {
+                    method: "POST"
+                });
+
+                if (!response.ok) {
+                    throw new Error("Logout failed.");
+                }
+
+                window.location.replace("/login.html");
+
+            } catch (error) {
+                dashboardMessage.textContent =
+                    "Could not log out. Please try again.";
+
+                dashboardMessage.hidden = false;
+                logoutButton.disabled = false;
+                logoutButton.textContent = "Logout";
+            }
+        });
+
+        loadPlayer();
+    </script>
+</body>
+</html>
