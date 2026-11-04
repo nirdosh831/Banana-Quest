@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Banana Quest</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main class="game-container">
+
+        <h1>🍌 Banana Quest</h1>
+        <p>Solve the banana puzzle and test your skills!</p>
+
+        <section class="hud" aria-label="Game status">
+            <div class="hud-item"><span class="hud-label">Score</span><span id="hud-score">0</span></div>
+            <div class="hud-item"><span class="hud-label">Streak</span><span id="hud-streak">0</span></div>
+            <div class="hud-item"><span class="hud-label">Time</span><span id="hud-timer">0s</span></div>
+        </section>
+
+        <section class="puzzle-section">
+            <h2>Today's Puzzle</h2>
+
+            <div class="puzzle-image-container">
+
+                <p id="puzzle-loading" role="status" aria-live="polite">
+                    Loading your banana puzzle...
+                </p>
+
+                <img
+                    id="puzzle-image"
+                    src=""
+                    alt="Banana puzzle"
+                    hidden
+                >
+
+            </div>
+        </section>
+
+        <form id="answer-form" novalidate>
+            <label for="answer-input">Enter your answer:</label>
+
+            <input
+                type="text"
+                id="answer-input"
+                inputmode="none"
+                placeholder="0"
+                maxlength="10"
+                autocomplete="off"
+                aria-describedby="numpad-help"
+                readonly
+            >
+
+            <div class="numpad" id="answer-numpad" role="group" aria-label="Number pad">
+                <button type="button" class="numpad-key" data-num="1">1</button>
+                <button type="button" class="numpad-key" data-num="2">2</button>
+                <button type="button" class="numpad-key" data-num="3">3</button>
+                <button type="button" class="numpad-key" data-num="4">4</button>
+                <button type="button" class="numpad-key" data-num="5">5</button>
+                <button type="button" class="numpad-key" data-num="6">6</button>
+                <button type="button" class="numpad-key" data-num="7">7</button>
+                <button type="button" class="numpad-key" data-num="8">8</button>
+                <button type="button" class="numpad-key" data-num="9">9</button>
+                <button type="button" class="numpad-key numpad-clear" data-action="clear">Clear</button>
+                <button type="button" class="numpad-key" data-num="0">0</button>
+                <button type="button" class="numpad-key numpad-back" data-action="backspace" aria-label="Delete last digit">⌫</button>
+            </div>
+            <span id="numpad-help" class="visually-hidden">Use the number pad to enter your answer.</span>
+
+            <button type="submit">Submit Answer</button>
+        </form>
+
+        <button type="button" id="new-puzzle-button" hidden>
+            Next Puzzle
+        </button>
+
+        <button
+            type="button"
+            id="dashboard-button"
+        >
+            ← Back to Dashboard
+        </button>
+
+        <p id="game-message" role="status" aria-live="polite"></p>
+
+    </main>
+
+    <div id="game-over" class="overlay" role="dialog" aria-modal="true" aria-labelledby="game-over-title" hidden>
+        <div class="overlay-card">
+            <h2 id="game-over-title">Game Over</h2>
+            <p class="final-score">Final score: <strong id="final-score">0</strong></p>
+            <p id="final-details"></p>
+            <button type="button" id="play-again-button">Play Again</button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+
+</body>
+</html>
